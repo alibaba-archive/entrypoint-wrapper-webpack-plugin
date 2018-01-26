@@ -1,0 +1,28 @@
+{
+    "name": "entrypoint-wrapper-webpack-plugin",
+    "version": "0.1.0",
+    "description": "entrypoint wrapper plugin for webpack",
+    "main": "index.js",
+    "scripts": {},
+    "keywords": [
+        "webpack",
+        "plugin",
+        "entrypoint",
+        "wrapper"
+    ],
+    "author": {
+        "name": "zhrln",
+        "email": "skyperson@gmail.com"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "lodash": "^4.17.4",
+        "virtual-module-webpack-plugin": "^0.3.0"
+    },
+    "devDependencies": {
+        "webpack": "^1.14.0"
+    },
+    "peerDependencies": {
+        "webpack": "1 || ^2 || ^3"
+    }
+}
