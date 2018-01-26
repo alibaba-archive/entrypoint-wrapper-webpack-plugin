@@ -40,5 +40,5 @@ module.exports = {
 |Name|Type|Description|
 |:--:|:--:|:----------|
 |`file`|`{String}`|wrapper path|
-|`template`|`{Function|String}`|wrapper template|
+|`template`|`{Function\|String}`|wrapper template|
 
