@@ -15,9 +15,16 @@
         "email": "skyperson@gmail.com"
     },
     "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/alibaba/entrypoint-wrapper-webpack-plugin/issues"
+    },
     "dependencies": {
         "lodash": "^4.17.4",
         "virtual-module-webpack-plugin": "^0.3.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alibaba/entrypoint-wrapper-webpack-plugin.git"
     },
     "devDependencies": {
         "webpack": "^1.14.0"
