@@ -17,6 +17,7 @@ class entryWrapperWebpackPlugin {
 
     constructor(options = {}){
         this.options = Object.assign({
+            include: /.*/,
             template: '',
             file: ''
         }, options);
@@ -24,7 +25,7 @@ class entryWrapperWebpackPlugin {
 
     apply(compiler){
 
-        let wrapperEntry;
+        const wrapperEntry = [];
         const context = compiler.context;
         const _opt = this.options;
 
@@ -45,17 +46,32 @@ class entryWrapperWebpackPlugin {
 
             const extToJs = npath => utils.replaceExt(npath, '.js');
 
-            if(typeof entry === "string") {
-                wrapperEntry = extToJs(entry);
-                compiler.apply(new SingleEntryPlugin(context, wrapperEntry, "main"));
-            } else if(Array.isArray(entry)){
-                wrapperEntry = entry.map(extToJs);
-                compiler.apply(new MultiEntryPlugin(context, wrapperEntry, "main"));
+            function action(n){
+                if(_opt.include.test(n)){
+                    const _js = extToJs(n);
+                    wrapperEntry.push({
+                        source: n,
+                        wrapper: _js
+                    });
+                    return _js;
+                }
+                return n;
+            }
+
+            function itemToPlugin(item, name) {
+                if(Array.isArray(item)){
+                    item = item.map(action);
+                    return new MultiEntryPlugin(context, item, name);
+                } else {
+                    return new SingleEntryPlugin(context, action(item), name);
+                }
+            }
+
+            if(typeof entry === "string" || Array.isArray(entry)) {
+                compiler.apply(itemToPlugin(entry, "main"));
             } else if(typeof entry === "object") {
-                wrapperEntry = Object.assign({}, entry);
-                Object.keys(wrapperEntry).forEach(name => {
-                    wrapperEntry[name] = extToJs(entry[name]);
-                    compiler.apply(new SingleEntryPlugin(context, wrapperEntry[name], name));
+                Object.keys(entry).forEach(function(name) {
+                    compiler.apply(itemToPlugin(entry[name], name));
                 });
             }
 
@@ -63,10 +79,9 @@ class entryWrapperWebpackPlugin {
 
         });
 
-        compiler.plugin("this-compilation", function(compilation) {
+        compiler.plugin("after-environment", function() {
 
             const inputFileSystem = this.inputFileSystem;
-            const optionsEntry = compilation.options.entry;
 
             const compileTemplate = originPath => {
                 const params = { origin: originPath };
@@ -85,13 +100,9 @@ class entryWrapperWebpackPlugin {
                 });
             }
 
-            if(typeof wrapperEntry === "string") {
-                saveToVirtualFilesystem(wrapperEntry, compileTemplate(optionsEntry));
-            }else if(typeof wrapperEntry === "object"){
-                Object.keys(wrapperEntry).forEach(entry => {
-                    saveToVirtualFilesystem(wrapperEntry[entry], compileTemplate(optionsEntry[entry]))
-                });
-            }
+            wrapperEntry.forEach(({source, wrapper}) => {
+                saveToVirtualFilesystem(wrapper, compileTemplate(source))
+            });
 
         });
 
