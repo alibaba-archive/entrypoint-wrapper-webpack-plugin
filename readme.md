@@ -60,5 +60,5 @@ module.exports = {
 |:--:|:--:|:----------|
 |`include`|`{RegExp}`|included files|
 |`file`|`{String}`|wrapper path|
-|`template`|`{Function\|String}`|wrapper template|
+|`template`|`{Function}{String}`|wrapper template|
 
