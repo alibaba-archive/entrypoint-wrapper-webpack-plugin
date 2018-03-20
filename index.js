@@ -79,7 +79,7 @@ class entryWrapperWebpackPlugin {
 
         });
 
-        compiler.plugin("after-environment", function() {
+        compiler.plugin("this-compilation", function() {
 
             const inputFileSystem = this.inputFileSystem;
 
