@@ -17,6 +17,7 @@ class entryWrapperWebpackPlugin {
 
     constructor(options = {}){
         this.options = Object.assign({
+            skipExistFiles: false,
             include: /.*/,
             template: '',
             file: ''
@@ -93,6 +94,7 @@ class entryWrapperWebpackPlugin {
 
             function saveToVirtualFilesystem(jsPath, contents){
                 const modulePath = path.isAbsolute(jsPath) ? jsPath : path.join(context, jsPath);
+                if(fs.existsSync(modulePath) && _opt.skipExistFiles) return;
                 virtualFilesystem({
                     fs: inputFileSystem,
                     modulePath,
