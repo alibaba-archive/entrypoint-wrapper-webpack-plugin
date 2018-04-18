@@ -68,9 +68,10 @@ module.exports = {
 
 ## Options
 
-|Name|Type|Description|
-|:--:|:--:|:----------|
-|`include`|`{RegExp}`|included files|
-|`file`|`{String}`|wrapper path|
-|`template`|`{Function}{String}`|wrapper template|
+|Name|Type|Default|Description|
+|:--:|:--:|:--:|:----------|
+|`skipExistFiles`|`{Boolean}`|`false`|skip existing files|
+|`include`|`{RegExp}`|`/.*/`|included files|
+|`file`|`{String}`|`''`|wrapper path|
+|`template`|`{Function,String}`|`''`|wrapper template|
 
