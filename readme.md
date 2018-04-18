@@ -15,6 +15,10 @@ npm i -D entrypoint-wrapper-webpack-plugin
 ```js
 const EntryPoint = require('entrypoint-wrapper-webpack-plugin');
 module.exports = {
+  entry: {
+    'common': ['vue', vuex],
+    'my/index': 'src/views/my/index.vue'
+  },
   plugins: [
 	new EntryPoint({
 	  include: /.*\.vue$/,
@@ -28,6 +32,10 @@ module.exports = {
 ```js
 const EntryPoint = require('entrypoint-wrapper-webpack-plugin');
 module.exports = {
+  entry: {
+    'common': ['vue', vuex],
+    'my/index': 'src/views/my/index.vue'
+  },
   plugins: [
 	new EntryPoint({
 	  include: /.*\.vue$/,
@@ -42,6 +50,10 @@ module.exports = {
 ```js
 const EntryPoint = require('entrypoint-wrapper-webpack-plugin');
 module.exports = {
+  entry: {
+    'common': ['vue', vuex],
+    'my/index': 'src/views/my/index.vue'
+  },
   plugins: [
 	new EntryPoint({
 	  include: /.*\.vue$/,
