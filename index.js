@@ -80,9 +80,9 @@ class entryWrapperWebpackPlugin {
 
         });
 
-        compiler.plugin("this-compilation", function() {
+        compiler.plugin("this-compilation", function(compilation) {
 
-            const inputFileSystem = this.inputFileSystem;
+            const inputFileSystem = compilation.inputFileSystem;
 
             const compileTemplate = originPath => {
                 const params = { origin: originPath };
